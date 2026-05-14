@@ -8,6 +8,8 @@ import authRouter from './routes/auth.routes.js'
 import nRouter from './routes/n.routes.js'
 import { stripeWebhook } from './controller/stripePayment.controller.js'
 import cors from 'cors'
+import socialRouter from './routes/social.routes.js'
+import passport from './config/passport.js'
 dotenv.config({path:new URL("./.env", import.meta.url)})
 
 
@@ -25,10 +27,12 @@ app.use((req, res, next) => {
 
 
 app.use(cors());
+app.use(passport.initialize());
 app.use("/api/auth",authRouter)
 app.use("/api/course",courseRouter)
 app.use("/api/razorpay",razorpayRouter)
 app.use("/api/n",nRouter)
+app.use("/api/social", socialRouter);
 const port = process.env.PORT || 8080
 app.listen(port,()=>{
     console.log(`server is started ${port}`)
@@ -40,3 +44,5 @@ app.listen(port,()=>{
 // Any future expiry
 // Any CVV
 // OTP: 1234
+
+                                                                                                      
